@@ -22,8 +22,6 @@ const publicKeyPath = option(
 );
 const previous = `${target}.previous`;
 
-if (!manifestInput) throw new Error('--manifest is required.');
-
 if (process.argv.includes('--rollback')) {
   await lstat(previous).catch(() => {
     throw new Error(`No rollback bundle exists at ${previous}.`);
@@ -36,6 +34,8 @@ if (process.argv.includes('--rollback')) {
   console.log(`Rolled back ${target}.`);
   process.exit(0);
 }
+
+if (!manifestInput) throw new Error('--manifest is required.');
 
 const manifest = manifestInput.startsWith('https://')
   ? JSON.parse((await fetchBytes(manifestInput)).toString('utf8'))

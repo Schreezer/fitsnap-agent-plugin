@@ -31,6 +31,10 @@ if (!/^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/.test(plugin.name)) {
 if (mcp.$schema !== 'https://agent-plugins.org/schemas/1.0.0/mcp.schema.json') {
   throw new Error('mcp.json does not target Agent Plugins v1.0.0.');
 }
+if (!mcp.mcpServers || typeof mcp.mcpServers !== 'object' ||
+    Array.isArray(mcp.mcpServers)) {
+  throw new Error('mcp.json must contain an mcpServers object.');
+}
 for (const [name, server] of Object.entries(mcp.mcpServers || {})) {
   if (server.type !== 'streamable-http') {
     throw new Error(`Unsupported MCP transport for ${name}: ${server.type}`);
