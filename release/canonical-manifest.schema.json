@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fitsnap.fun/plugin/canonical-manifest.schema.json",
+  "title": "Fit Snap canonical plugin release manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pluginId",
+    "pluginVersion",
+    "skillsVersion",
+    "skills",
+    "pluginArtifact",
+    "mcpContractVersion",
+    "capabilityVersion",
+    "minimumAgentVersions",
+    "minimumFitSnapAppVersion",
+    "releaseChannel",
+    "updateUrl",
+    "requestedScopes",
+    "signature"
+  ],
+  "properties": {
+    "pluginId": { "const": "fit-snap" },
+    "pluginVersion": { "$ref": "#/$defs/semver" },
+    "skillsVersion": { "$ref": "#/$defs/semver" },
+    "skills": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["url", "sha256"],
+        "properties": {
+          "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+          "sha256": { "$ref": "#/$defs/sha256" }
+        }
+      }
+    },
+    "pluginArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["url", "sha256"],
+      "properties": {
+        "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "mcpContractVersion": { "type": "string", "minLength": 1 },
+    "capabilityVersion": { "type": "string", "minLength": 1 },
+    "minimumAgentVersions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["codex", "chatgpt", "hermes", "poke"],
+      "properties": {
+        "codex": { "type": "string", "minLength": 1 },
+        "chatgpt": { "type": "string", "minLength": 1 },
+        "hermes": { "type": "string", "minLength": 1 },
+        "poke": { "type": "string", "minLength": 1 }
+      }
+    },
+    "minimumFitSnapAppVersion": { "$ref": "#/$defs/semver" },
+    "releaseChannel": { "enum": ["stable", "beta", "development"] },
+    "updateUrl": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "requestedScopes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "keyId", "value"],
+      "properties": {
+        "algorithm": { "type": "string", "minLength": 1 },
+        "keyId": { "type": "string", "minLength": 1 },
+        "value": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "$defs": {
+    "semver": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "fitsnap": {
+      "type": "http",
+      "url": "https://dev.forgeme.xyz/api/v1/mcp"
+    }
+  }
+}

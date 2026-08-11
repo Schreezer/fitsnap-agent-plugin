@@ -1,0 +1,56 @@
+name: Signed release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate Agent Plugins package
+        run: node scripts/validate-package.mjs
+
+      - name: Build immutable plugin archive
+        run: |
+          mkdir -p dist
+          version="${GITHUB_REF_NAME#v}"
+          tar --exclude='./.git' --exclude='./dist' -czf "dist/fit-snap-${version}.tar.gz" .
+
+      - name: Create signed release manifest
+        env:
+          FITSNAP_RELEASE_PRIVATE_KEY: ${{ secrets.FITSNAP_RELEASE_PRIVATE_KEY }}
+          FITSNAP_RELEASE_KEY_ID: fitsnap-ed25519-2026
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          node scripts/create-release-manifest.mjs \
+            --version "$version" \
+            --commit "$GITHUB_SHA" \
+            --artifact "dist/fit-snap-${version}.tar.gz" \
+            --output dist/manifest.json
+          node scripts/verify-release.mjs \
+            --manifest dist/manifest.json \
+            --public-key release/public-key.pem \
+            --artifact "dist/fit-snap-${version}.tar.gz"
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          gh release create "$GITHUB_REF_NAME" \
+            "dist/fit-snap-${version}.tar.gz" \
+            dist/manifest.json \
+            release/public-key.pem \
+            --title "Fit Snap Agent Plugin ${version}" \
+            --generate-notes
