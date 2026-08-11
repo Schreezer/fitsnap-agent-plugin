@@ -70,9 +70,13 @@ export async function fetchBytes(url) {
   if (!url.startsWith('https://')) {
     throw new Error(`Release URL must use HTTPS: ${url}`);
   }
-  const response = await fetch(url, { redirect: 'error' });
+  const response = await fetch(url, { redirect: 'follow' });
   if (!response.ok) {
     throw new Error(`Failed to download ${url}: HTTP ${response.status}`);
+  }
+  const finalUrl = new URL(response.url);
+  if (finalUrl.protocol !== 'https:' || finalUrl.username || finalUrl.password) {
+    throw new Error(`Release download redirected to an unsafe URL: ${response.url}`);
   }
   return Buffer.from(await response.arrayBuffer());
 }
