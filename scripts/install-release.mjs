@@ -63,10 +63,24 @@ try {
   if (entries.some((entry) => entry.startsWith('/') || entry.split('/').includes('..'))) {
     throw new Error('Plugin archive contains an unsafe path.');
   }
+  if (
+    entries.some((entry) =>
+      /(^|\/)release\/[^/]*private[^/]*\.pem$|(^|\/)private-key\.pem$/i.test(entry),
+    )
+  ) {
+    throw new Error('Plugin archive must not include release private keys.');
+  }
 
   execFileSync('tar', ['-xzf', archivePath, '-C', staging]);
   await lstat(path.join(staging, 'plugin.json'));
   await lstat(path.join(staging, 'mcp.json'));
+  const privateKeyPath = path.join(staging, 'release', 'private-key.pem');
+  await lstat(privateKeyPath).then(
+    () => {
+      throw new Error('Plugin archive must not include release/private-key.pem.');
+    },
+    () => undefined,
+  );
   await rm(archivePath);
   await rm(previous, { recursive: true, force: true });
   await rename(target, previous).catch(() => undefined);

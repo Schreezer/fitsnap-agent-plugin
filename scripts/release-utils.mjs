@@ -1,5 +1,10 @@
-import { createHash, verify } from 'node:crypto';
+import { createHash, createPublicKey, verify } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
+
+export const TRUSTED_RELEASE_KEY_FINGERPRINTS = Object.freeze({
+  'fitsnap-ed25519-2026':
+    'c0511c6be8712a6c529b20ac2f014f8af5747663ddb7f7746cd0e68b50f7720e',
+});
 
 export function sortForCanonicalJson(value) {
   if (Array.isArray(value)) {
@@ -32,6 +37,26 @@ export async function sha256File(path) {
   return sha256(await readFile(path));
 }
 
+export function publicKeyFingerprint(publicKeyPem) {
+  return createHash('sha256')
+    .update(createPublicKey(publicKeyPem).export({ type: 'spki', format: 'der' }))
+    .digest('hex');
+}
+
+export function assertTrustedPublicKey(
+  publicKeyPem,
+  keyId,
+  trustedKeys = TRUSTED_RELEASE_KEY_FINGERPRINTS,
+) {
+  const expected = trustedKeys[keyId];
+  if (!expected) {
+    throw new Error(`Unknown release signing key: ${keyId}`);
+  }
+  if (publicKeyFingerprint(publicKeyPem) !== expected) {
+    throw new Error(`Release signing key fingerprint mismatch for ${keyId}.`);
+  }
+}
+
 export function validateManifest(manifest) {
   if (!manifest || typeof manifest !== 'object') {
     throw new Error('Release manifest must be an object.');
@@ -56,8 +81,13 @@ export function validateManifest(manifest) {
   }
 }
 
-export function verifyManifestSignature(manifest, publicKeyPem) {
+export function verifyManifestSignature(
+  manifest,
+  publicKeyPem,
+  trustedKeys = TRUSTED_RELEASE_KEY_FINGERPRINTS,
+) {
   validateManifest(manifest);
+  assertTrustedPublicKey(publicKeyPem, manifest.signature.keyId, trustedKeys);
   return verify(
     null,
     Buffer.from(canonicalJson(unsignedManifest(manifest))),

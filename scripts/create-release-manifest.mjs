@@ -61,13 +61,6 @@ const manifest = {
   },
   mcpContractVersion: '1',
   capabilityVersion: '1',
-  minimumAgentVersions: {
-    codex: '0.147.0',
-    chatgpt: '*',
-    hermes: '*',
-    poke: '*',
-  },
-  minimumFitSnapAppVersion: '1.2.3',
   releaseChannel: 'stable',
   updateUrl: `https://github.com/${repository}/releases/latest/download/manifest.json`,
   requestedScopes: ['read', 'write'],

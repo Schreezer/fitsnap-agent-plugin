@@ -1,6 +1,6 @@
 # Fit Snap plugin portability and update contract
 
-Status: implemented release contract. Version `0.3.0` is the first Agent
+Status: implemented release contract. Version `0.3.3` is the current Agent
 Plugins v1 package with signed GitHub release artifacts and a reference
 verification/activation script.
 
@@ -28,26 +28,19 @@ The signed manifest contains:
 ```json
 {
   "pluginId": "fit-snap",
-  "pluginVersion": "0.3.0",
-  "skillsVersion": "0.3.0",
+  "pluginVersion": "0.3.3",
+  "skillsVersion": "0.3.3",
   "skills": {
     "food-logging": { "url": "https://.../skills/food-logging/SKILL.md", "sha256": "..." },
     "workout-logging": { "url": "https://.../skills/workout-logging/SKILL.md", "sha256": "..." },
     "body-profile-and-recovery": { "url": "https://.../skills/body-profile-and-recovery/SKILL.md", "sha256": "..." }
   },
   "pluginArtifact": {
-    "url": "https://.../fit-snap-0.3.0.tar.gz",
+    "url": "https://.../fit-snap-0.3.3.tar.gz",
     "sha256": "..."
   },
   "mcpContractVersion": "1",
   "capabilityVersion": "1",
-  "minimumAgentVersions": {
-    "codex": "...",
-    "chatgpt": "...",
-    "hermes": "...",
-    "poke": "..."
-  },
-  "minimumFitSnapAppVersion": "...",
   "releaseChannel": "stable",
   "updateUrl": "https://.../manifest.json",
   "requestedScopes": ["read", "write"],
@@ -61,6 +54,13 @@ The release workflow computes content hashes and signs the canonical bytes. The
 reference installer fails closed on an absent/invalid signature, hash mismatch,
 unsafe archive path, or failed staging. No credentials or bearer tokens are
 release artifacts.
+
+Release verifiers pin each signing `keyId` to an Ed25519 public-key SPKI
+SHA-256 fingerprint in `scripts/release-utils.mjs`. Key rotation adds a new
+key-id/fingerprint while retaining the old key, ships a verifier update signed
+by the old key, then switches the release workflow and public key to the new
+key. An existing key-id's fingerprint is never replaced, and old keys are
+removed only after supported verifiers have migrated.
 
 ## MCP contract evolution
 

@@ -12,8 +12,6 @@
     "pluginArtifact",
     "mcpContractVersion",
     "capabilityVersion",
-    "minimumAgentVersions",
-    "minimumFitSnapAppVersion",
     "releaseChannel",
     "updateUrl",
     "requestedScopes",
@@ -47,18 +45,6 @@
     },
     "mcpContractVersion": { "type": "string", "minLength": 1 },
     "capabilityVersion": { "type": "string", "minLength": 1 },
-    "minimumAgentVersions": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["codex", "chatgpt", "hermes", "poke"],
-      "properties": {
-        "codex": { "type": "string", "minLength": 1 },
-        "chatgpt": { "type": "string", "minLength": 1 },
-        "hermes": { "type": "string", "minLength": 1 },
-        "poke": { "type": "string", "minLength": 1 }
-      }
-    },
-    "minimumFitSnapAppVersion": { "$ref": "#/$defs/semver" },
     "releaseChannel": { "enum": ["stable", "beta", "development"] },
     "updateUrl": { "type": "string", "format": "uri", "pattern": "^https://" },
     "requestedScopes": {

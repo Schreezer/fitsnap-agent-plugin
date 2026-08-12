@@ -1,6 +1,6 @@
 {
   "name": "fit-snap",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Add authenticated Fit Snap tools and logging guidance to an existing agent.",
   "author": {
     "name": "Fit Snap"

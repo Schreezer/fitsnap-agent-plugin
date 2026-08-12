@@ -19,14 +19,37 @@ jobs:
           node-version: 20
 
       - name: Validate Agent Plugins package
-        run: node scripts/validate-package.mjs
+        run: |
+          node scripts/validate-package.mjs
+          node --test scripts/release.test.mjs
 
       - name: Build immutable plugin archive
         run: |
           mkdir -p dist
           version="${GITHUB_REF_NAME#v}"
-          tar --exclude='./.git' --exclude='./dist' -czf "dist/fit-snap-${version}.tar.gz" .
-
+          tag_version="${GITHUB_REF_NAME#v}"
+          package_version="$(node -e "console.log(JSON.parse(require('fs').readFileSync('plugin.json','utf8')).version)")"
+          if [ "$tag_version" != "$package_version" ]; then
+            echo "Tag version $tag_version does not match plugin.json version $package_version" >&2
+            exit 1
+          fi
+          tar \
+            --exclude='./.git' \
+            --exclude='./dist' \
+            --exclude='./.DS_Store' \
+            --exclude='./release/private-key.pem' \
+            --exclude='./release/*private*.pem' \
+            -czf "dist/fit-snap-${version}.tar.gz" \
+            .
+          listing="$(tar -tzf "dist/fit-snap-${version}.tar.gz")"
+          if printf '%s\n' "$listing" | grep -Eiq '(^|/)release/[^/]*private[^/]*\.pem$'; then
+            echo 'Release archive contains a private key under release/' >&2
+            exit 1
+          fi
+          if printf '%s\n' "$listing" | grep -Eiq '(^|/)private-key\.pem$'; then
+            echo 'Release archive contains private-key.pem' >&2
+            exit 1
+          fi
       - name: Create signed release manifest
         env:
           FITSNAP_RELEASE_PRIVATE_KEY: ${{ secrets.FITSNAP_RELEASE_PRIVATE_KEY }}
