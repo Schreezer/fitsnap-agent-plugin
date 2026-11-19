@@ -7,6 +7,7 @@ domain behavior or add permissions.
 | Host | Current adapter boundary |
 |---|---|
 | Codex | Native OpenAI plugin package. Updates use the configured marketplace/directory channel. |
+| Claude Code | Native plugin manifest with the shared `.mcp.json` and skills. |
 | ChatGPT | Same package plus a registered `.app.json` MCP connection ID. |
 | Hermes | Package a thin Hermes plugin/tap from the canonical Git source. Hermes provides provenance-aware `skills check`/`skills update` and `plugins update`; the Fit Snap adapter and signed release pipeline are not implemented in this checkout. |
 | Poke | Publish a Recipe requiring the stable remote Fit Snap MCP. MCP tool metadata re-syncs, but Recipe edits currently affect new sign-ups only; no existing-user `SKILL.md` updater is documented. |

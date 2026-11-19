@@ -1,8 +1,8 @@
-# Add Fit Snap to your agent
+# Add Forge to your agent
 
-This package adds Fit Snap to an agent the user already operates. The external
+This package adds Forge to an agent the user already operates. The external
 agent remains responsible for its model, inference, context, orchestration, and
-costs. Fit Snap provides OAuth-authorized MCP tools, user-owned fitness data,
+costs. Forge provides OAuth-authorized MCP tools, user-owned fitness data,
 server-validated mutations, and domain skills.
 
 It does **not** make Hermes, OpenClaw, or another personal agent the runtime for
@@ -17,12 +17,17 @@ The canonical source in this package is:
 - `mcp.json`: the stable remote Fit Snap MCP endpoint;
 - `skills/food-logging/SKILL.md`;
 - `skills/workout-logging/SKILL.md`;
-- `skills/body-profile-and-recovery/SKILL.md`.
+- `skills/body-profile-and-recovery/SKILL.md`;
+- `skills/targets-and-preferences/SKILL.md`.
 
-The legacy `.codex-plugin/plugin.json` and `.mcp.json` files remain only as a
-Codex compatibility adapter. New clients should load the standard root files.
+Codex and Claude Code use their host manifests and the shared `.mcp.json`.
+The package ID stays `fit-snap` for existing installations.
 No adapter may fork the behavior rules. Host-specific installers copy or map
 these immutable release artifacts and configure the same MCP endpoint.
+
+Approve the requested Forge access in the browser after installing the plugin.
+If the assistant only has read access, request write access through the host
+when you want it to save logs or change settings.
 
 The package contains no user tokens, database credentials, Hermes
 configuration, or personal food/workout history. OAuth credentials remain in
@@ -35,6 +40,7 @@ installation and authentication remain host responsibilities.
 
 - **Codex:** the compatibility files are retained for the current Codex
   marketplace flow. The standard root package is the canonical source.
+- **Claude Code:** load the repository as a native plugin. It shares the same skills and reports the same MCP server.
 - **ChatGPT:** register the MCP connection in developer mode and add the real
   `plugin_asdk_app...` ID through `.app.json` before testing or directory
   submission. Never fabricate this ID.

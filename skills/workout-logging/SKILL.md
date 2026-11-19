@@ -1,11 +1,11 @@
 ---
 name: workout-logging
-description: Use when the user reports completed sets, reps, load, cardio, substitutions, or a finished workout and wants it saved to Fit Snap.
+description: Use when the user reports completed sets, reps, load, cardio, substitutions, or a finished workout and wants it saved to Forge.
 ---
 
-# Fit Snap workout logging
+# Forge workout logging
 
-Use Fit Snap MCP tools for all reads and writes. User-reported performance is an
+Use Forge MCP tools for all reads and writes. User-reported performance is an
 execution log, not permission to rewrite future programming.
 
 ## Workflow

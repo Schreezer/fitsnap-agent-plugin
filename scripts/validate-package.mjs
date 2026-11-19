@@ -7,6 +7,10 @@ const plugin = JSON.parse(await readFile(path.join(root, 'plugin.json'), 'utf8')
 const mcp = JSON.parse(await readFile(path.join(root, 'mcp.json'), 'utf8'));
 const codexPlugin = JSON.parse(
   await readFile(path.join(root, '.codex-plugin', 'plugin.json'), 'utf8'),
+  await readFile(path.join(root, '.claude-plugin', 'plugin.json'), 'utf8'),
+);
+const claudePlugin = JSON.parse(
+  await readFile(path.join(root, '.claude-plugin', 'plugin.json'), 'utf8'),
 );
 const legacyMcp = JSON.parse(await readFile(path.join(root, '.mcp.json'), 'utf8'));
 
@@ -35,6 +39,9 @@ if (codexPlugin.version !== plugin.version) {
   throw new Error(
     `Codex adapter version ${codexPlugin.version} does not match plugin.json ${plugin.version}.`,
   );
+}
+if (claudePlugin.name !== plugin.name || claudePlugin.version !== plugin.version) {
+  throw new Error('Claude Code adapter identity and version must match plugin.json.');
 }
 if (codexPlugin.mcpServers !== './.mcp.json') {
   throw new Error('Codex adapter must point mcpServers at ./.mcp.json.');
@@ -75,6 +82,7 @@ for (const [name, server] of Object.entries(mcp.mcpServers)) {
 const requiredSkills = [
   'body-profile-and-recovery',
   'food-logging',
+  'targets-and-preferences',
   'workout-logging',
 ];
 const skillsDir = path.join(root, 'skills');

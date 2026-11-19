@@ -84,6 +84,7 @@ test('sign and verify round-trip with an ephemeral Ed25519 key', async () => {
       'mcp.json',
       '.mcp.json',
       '.codex-plugin',
+      '.claude-plugin',
       'skills',
       'scripts',
       'release',
