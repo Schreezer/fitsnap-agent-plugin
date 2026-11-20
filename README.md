@@ -3,7 +3,7 @@
 This package adds Forge to an agent the user already operates. The external
 agent remains responsible for its model, inference, context, orchestration, and
 costs. Forge provides OAuth-authorized MCP tools, user-owned fitness data,
-server-validated mutations, and domain skills.
+four scoped read tools, and domain skills.
 
 It does **not** make Hermes, OpenClaw, or another personal agent the runtime for
 Fit Snap's own in-app AI. That is a separate future product lane and is not open
@@ -14,7 +14,7 @@ for new connections.
 The canonical source in this package is:
 
 - `plugin.json`: the Agent Plugins v1 manifest;
-- `mcp.json`: the stable remote Fit Snap MCP endpoint;
+- `mcp.json`: the remote Forge MCP endpoint at `/api/v1/forge-mcp`;
 - `skills/food-logging/SKILL.md`;
 - `skills/workout-logging/SKILL.md`;
 - `skills/body-profile-and-recovery/SKILL.md`;
@@ -26,8 +26,7 @@ No adapter may fork the behavior rules. Host-specific installers copy or map
 these immutable release artifacts and configure the same MCP endpoint.
 
 Approve the requested Forge access in the browser after installing the plugin.
-If the assistant only has read access, request write access through the host
-when you want it to save logs or change settings.
+The Forge connection reads native tracking data. Log meals, update targets, and upload health reports in the Forge app.
 
 The package contains no user tokens, database credentials, Hermes
 configuration, or personal food/workout history. OAuth credentials remain in

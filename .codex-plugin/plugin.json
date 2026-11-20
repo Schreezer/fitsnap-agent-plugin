@@ -11,21 +11,20 @@
   "interface": {
     "displayName": "Forge",
     "shortDescription": "Add verified Forge tools to your existing agent.",
-    "longDescription": "Adds the authenticated Forge MCP server and careful nutrition, workout, body-profile, and recovery workflows to ChatGPT or Codex. Your chosen agent remains responsible for inference and model costs.",
+    "longDescription": "Adds the authenticated Forge MCP server and read-only nutrition, workout, and body-weight workflows to ChatGPT or Codex. Your chosen agent remains responsible for inference and model costs.",
     "developerName": "Forge",
     "category": "Health & Fitness",
     "capabilities": [
-      "Read fitness and recovery data",
-      "Log nutrition",
-      "Log workouts",
-      "Update nutrition targets"
+      "Read nutrition and targets",
+      "Find workouts and foods",
+      "Read weight trends"
     ],
     "websiteURL": "https://fitsnap.fun",
     "privacyPolicyURL": "https://fitsnap.fun/privacy-policy",
     "termsOfServiceURL": "https://fitsnap.fun/terms",
     "defaultPrompt": [
-      "Log what I ate in Forge.",
-      "Log my completed workout in Forge.",
+      "Show what I logged for lunch in Forge.",
+      "Find my latest upper-body workout in Forge.",
       "Show today's nutrition progress from Forge."
     ],
     "brandColor": "#A43B32"

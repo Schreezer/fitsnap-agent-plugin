@@ -2,7 +2,7 @@
   "name": "fit-snap",
   "displayName": "Forge",
   "version": "0.4.0",
-  "description": "Connect to Forge and use its food, workout, recovery, and nutrition target workflows.",
+  "description": "Connect to Forge and review food logs, workouts, weight trends, and nutrition targets.",
   "author": {
     "name": "Forge"
   },
