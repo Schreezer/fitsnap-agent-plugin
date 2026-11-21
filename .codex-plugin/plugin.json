@@ -1,32 +1,31 @@
 {
   "name": "fit-snap",
-  "version": "0.3.3",
-  "description": "Add authenticated Fit Snap tools and logging guidance to an existing agent.",
+  "version": "0.4.0",
+  "description": "Add authenticated Forge tools and logging guidance to an existing agent.",
   "author": {
-    "name": "Fit Snap"
+    "name": "Forge"
   },
   "homepage": "https://fitsnap.fun",
   "keywords": ["fitness", "nutrition", "workouts", "recovery", "mcp"],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Fit Snap",
-    "shortDescription": "Add verified Fit Snap tools to your existing agent.",
-    "longDescription": "Adds the authenticated Fit Snap MCP server and careful nutrition, workout, body-profile, and recovery workflows to ChatGPT or Codex. Your chosen agent remains responsible for inference and model costs.",
-    "developerName": "Fit Snap",
+    "displayName": "Forge",
+    "shortDescription": "Add verified Forge tools to your existing agent.",
+    "longDescription": "Adds the authenticated Forge MCP server and read-only nutrition, workout, and body-weight workflows to ChatGPT or Codex. Your chosen agent remains responsible for inference and model costs.",
+    "developerName": "Forge",
     "category": "Health & Fitness",
     "capabilities": [
-      "Read fitness and recovery data",
-      "Log nutrition",
-      "Log workouts",
-      "Update current body profile"
+      "Read nutrition and targets",
+      "Find workouts and foods",
+      "Read weight trends"
     ],
     "websiteURL": "https://fitsnap.fun",
     "privacyPolicyURL": "https://fitsnap.fun/privacy-policy",
     "termsOfServiceURL": "https://fitsnap.fun/terms",
     "defaultPrompt": [
-      "Log what I ate in Fit Snap.",
-      "Log my completed workout in Fit Snap.",
-      "Show today's nutrition progress from Fit Snap."
+      "Show what I logged for lunch in Forge.",
+      "Find my latest upper-body workout in Forge.",
+      "Show today's nutrition progress from Forge."
     ],
     "brandColor": "#A43B32"
   },

@@ -1,6 +1,6 @@
 # Fit Snap plugin portability and update contract
 
-Status: implemented release contract. Version `0.3.3` is the current Agent
+Status: implemented release contract. Version `0.4.0` is the current Agent
 Plugins v1 package with signed GitHub release artifacts and a reference
 verification/activation script.
 
@@ -28,22 +28,23 @@ The signed manifest contains:
 ```json
 {
   "pluginId": "fit-snap",
-  "pluginVersion": "0.3.3",
-  "skillsVersion": "0.3.3",
+  "pluginVersion": "0.4.0",
+  "skillsVersion": "0.4.0",
   "skills": {
     "food-logging": { "url": "https://.../skills/food-logging/SKILL.md", "sha256": "..." },
     "workout-logging": { "url": "https://.../skills/workout-logging/SKILL.md", "sha256": "..." },
-    "body-profile-and-recovery": { "url": "https://.../skills/body-profile-and-recovery/SKILL.md", "sha256": "..." }
+    "body-profile-and-recovery": { "url": "https://.../skills/body-profile-and-recovery/SKILL.md", "sha256": "..." },
+    "targets-and-preferences": { "url": "https://.../skills/targets-and-preferences/SKILL.md", "sha256": "..." }
   },
   "pluginArtifact": {
-    "url": "https://.../fit-snap-0.3.3.tar.gz",
+    "url": "https://.../fit-snap-0.4.0.tar.gz",
     "sha256": "..."
   },
   "mcpContractVersion": "1",
   "capabilityVersion": "1",
   "releaseChannel": "stable",
   "updateUrl": "https://.../manifest.json",
-  "requestedScopes": ["read", "write"],
+  "requestedScopes": ["read"],
   "signature": { "algorithm": "...", "keyId": "...", "value": "..." }
 }
 ```

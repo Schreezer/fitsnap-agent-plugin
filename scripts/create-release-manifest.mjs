@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { createPrivateKey, sign } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -35,11 +35,11 @@ if (!privateKeyPem) {
 
 const rawBase = `https://raw.githubusercontent.com/${repository}/${commit}`;
 const releaseBase = `https://github.com/${repository}/releases/download/v${version}`;
-const skillNames = [
-  'body-profile-and-recovery',
-  'food-logging',
-  'workout-logging',
-];
+// Every skill shipped in skills/ gets a pinned URL and checksum.
+const skillNames = (await readdir(path.join(root, 'skills'), { withFileTypes: true }))
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name)
+  .sort();
 const skills = {};
 
 for (const name of skillNames) {
@@ -63,7 +63,8 @@ const manifest = {
   capabilityVersion: '1',
   releaseChannel: 'stable',
   updateUrl: `https://github.com/${repository}/releases/latest/download/manifest.json`,
-  requestedScopes: ['read', 'write'],
+  // The bundled endpoint is read-only; logging is a separate, opt-in connection.
+  requestedScopes: ['read'],
   signature: {
     algorithm: 'Ed25519',
     keyId: process.env.FITSNAP_RELEASE_KEY_ID || 'fitsnap-ed25519-2026',

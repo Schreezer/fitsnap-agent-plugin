@@ -1,9 +1,9 @@
-# Add Fit Snap to your agent
+# Add Forge to your agent
 
-This package adds Fit Snap to an agent the user already operates. The external
+This package adds Forge to an agent the user already operates. The external
 agent remains responsible for its model, inference, context, orchestration, and
-costs. Fit Snap provides OAuth-authorized MCP tools, user-owned fitness data,
-server-validated mutations, and domain skills.
+costs. Forge provides OAuth-authorized MCP tools, user-owned fitness data,
+four scoped read tools, and domain skills.
 
 It does **not** make Hermes, OpenClaw, or another personal agent the runtime for
 Fit Snap's own in-app AI. That is a separate future product lane and is not open
@@ -14,15 +14,24 @@ for new connections.
 The canonical source in this package is:
 
 - `plugin.json`: the Agent Plugins v1 manifest;
-- `mcp.json`: the stable remote Fit Snap MCP endpoint;
+- `mcp.json`: the remote Forge MCP endpoint at `/api/v1/forge-mcp`;
 - `skills/food-logging/SKILL.md`;
 - `skills/workout-logging/SKILL.md`;
-- `skills/body-profile-and-recovery/SKILL.md`.
+- `skills/body-profile-and-recovery/SKILL.md`;
+- `skills/targets-and-preferences/SKILL.md`.
 
-The legacy `.codex-plugin/plugin.json` and `.mcp.json` files remain only as a
-Codex compatibility adapter. New clients should load the standard root files.
+Codex and Claude Code use their host manifests and the shared `.mcp.json`.
+The package ID stays `fit-snap` for existing installations.
 No adapter may fork the behavior rules. Host-specific installers copy or map
 these immutable release artifacts and configure the same MCP endpoint.
+
+Approve the requested Forge access in the browser after installing the plugin.
+The bundled MCP connection reads native tracking data. To enable logging on a
+supported Forge backend, connect the host to `/api/v1/forge-mcp-log` and approve
+logging access. Shell agents with the `fitsnap` CLI from the Forge backend
+repository can run `fitsnap forge login --log` instead. Both paths
+support meal entries and completed sets in an active workout. Update existing
+entries or targets and upload health reports in the Forge app.
 
 The package contains no user tokens, database credentials, Hermes
 configuration, or personal food/workout history. OAuth credentials remain in
@@ -35,6 +44,8 @@ installation and authentication remain host responsibilities.
 
 - **Codex:** the compatibility files are retained for the current Codex
   marketplace flow. The standard root package is the canonical source.
+- **Claude Code:** install from the repository's marketplace. It shares the
+  same skills and MCP server. See [Claude Code](#claude-code) below.
 - **ChatGPT:** register the MCP connection in developer mode and add the real
   `plugin_asdk_app...` ID through `.app.json` before testing or directory
   submission. Never fabricate this ID.
@@ -50,6 +61,27 @@ installation and authentication remain host responsibilities.
 
 See [`adapters/README.md`](adapters/README.md) and
 [`PORTABILITY_AND_UPDATE_CONTRACT.md`](PORTABILITY_AND_UPDATE_CONTRACT.md).
+
+## Claude Code
+
+```
+/plugin marketplace add Schreezer/fitsnap-agent-plugin
+/plugin install fit-snap@forge
+```
+
+Then run `/mcp`, choose `plugin:fit-snap:fitsnap`, and approve read access in
+the browser. To test an unreleased branch, add
+`Schreezer/fitsnap-agent-plugin#<branch>` as the marketplace instead.
+
+The plugin connects read-only. To let Claude log meals and completed sets, add
+the logging endpoint as its own server and approve logging access through
+`/mcp`:
+
+```
+claude mcp add --scope user --transport http forge-log https://dev.forgeme.xyz/api/v1/forge-mcp-log
+```
+
+Refresh the plugin with `/plugin marketplace update forge`.
 
 ## OpenAI distribution
 

@@ -1,10 +1,10 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "fit-snap",
-  "version": "0.3.3",
-  "description": "Add authenticated Fit Snap fitness tools and domain skills to an existing agent.",
+  "version": "0.4.0",
+  "description": "Connect an existing assistant to Forge fitness tools and skills.",
   "author": {
-    "name": "Fit Snap",
+    "name": "Forge",
     "url": "https://fitsnap.fun"
   },
   "homepage": "https://fitsnap.fun",
