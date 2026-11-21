@@ -30,8 +30,9 @@ The bundled MCP connection reads native tracking data. To enable logging on a
 supported Forge backend, connect the host to `/api/v1/forge-mcp-log` and approve
 logging access. Shell agents with the `fitsnap` CLI from the Forge backend
 repository can run `fitsnap forge login --log` instead. Both paths
-support meal entries and completed sets in an active workout. Update existing
-entries or targets and upload health reports in the Forge app.
+support meal entries, completed sets for a workout in progress or already
+finished, and whole workouts logged after the fact. Update existing entries or
+targets and upload health reports in the Forge app.
 
 The package contains no user tokens, database credentials, Hermes
 configuration, or personal food/workout history. OAuth credentials remain in

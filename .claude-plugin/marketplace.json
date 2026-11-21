@@ -11,7 +11,7 @@
       "name": "fit-snap",
       "source": "./",
       "description": "Connect to Forge and review food logs, workouts, weight trends, and nutrition targets.",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "category": "health",
       "homepage": "https://fitsnap.fun",
       "repository": "https://github.com/Schreezer/fitsnap-agent-plugin",
