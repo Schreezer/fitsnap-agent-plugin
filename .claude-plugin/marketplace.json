@@ -1,0 +1,21 @@
+{
+  "name": "forge",
+  "owner": {
+    "name": "Forge"
+  },
+  "metadata": {
+    "description": "Forge plugins for Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "fit-snap",
+      "source": "./",
+      "description": "Connect to Forge and review food logs, workouts, weight trends, and nutrition targets.",
+      "version": "0.4.0",
+      "category": "health",
+      "homepage": "https://fitsnap.fun",
+      "repository": "https://github.com/Schreezer/fitsnap-agent-plugin",
+      "license": "MIT"
+    }
+  ]
+}

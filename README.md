@@ -43,7 +43,8 @@ installation and authentication remain host responsibilities.
 
 - **Codex:** the compatibility files are retained for the current Codex
   marketplace flow. The standard root package is the canonical source.
-- **Claude Code:** load the repository as a native plugin. It shares the same skills and reports the same MCP server.
+- **Claude Code:** install from the repository's marketplace. It shares the
+  same skills and MCP server. See [Claude Code](#claude-code) below.
 - **ChatGPT:** register the MCP connection in developer mode and add the real
   `plugin_asdk_app...` ID through `.app.json` before testing or directory
   submission. Never fabricate this ID.
@@ -59,6 +60,27 @@ installation and authentication remain host responsibilities.
 
 See [`adapters/README.md`](adapters/README.md) and
 [`PORTABILITY_AND_UPDATE_CONTRACT.md`](PORTABILITY_AND_UPDATE_CONTRACT.md).
+
+## Claude Code
+
+```
+/plugin marketplace add Schreezer/fitsnap-agent-plugin
+/plugin install fit-snap@forge
+```
+
+Then run `/mcp`, choose `plugin:fit-snap:fitsnap`, and approve read access in
+the browser. To test an unreleased branch, add
+`Schreezer/fitsnap-agent-plugin#<branch>` as the marketplace instead.
+
+The plugin connects read-only. To let Claude log meals and completed sets, add
+the logging endpoint as its own server and approve logging access through
+`/mcp`:
+
+```
+claude mcp add --transport http forge-log https://dev.forgeme.xyz/api/v1/forge-mcp-log
+```
+
+Refresh the plugin with `/plugin marketplace update forge`.
 
 ## OpenAI distribution
 

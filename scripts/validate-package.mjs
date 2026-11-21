@@ -7,11 +7,24 @@ const plugin = JSON.parse(await readFile(path.join(root, 'plugin.json'), 'utf8')
 const mcp = JSON.parse(await readFile(path.join(root, 'mcp.json'), 'utf8'));
 const codexPlugin = JSON.parse(
   await readFile(path.join(root, '.codex-plugin', 'plugin.json'), 'utf8'),
-  await readFile(path.join(root, '.claude-plugin', 'plugin.json'), 'utf8'),
 );
 const claudePlugin = JSON.parse(
   await readFile(path.join(root, '.claude-plugin', 'plugin.json'), 'utf8'),
 );
+const claudeMarketplace = JSON.parse(
+  await readFile(path.join(root, '.claude-plugin', 'marketplace.json'), 'utf8'),
+);
+const marketplaceEntry = claudeMarketplace.plugins?.find(
+  (entry) => entry.name === claudePlugin.name,
+);
+if (!marketplaceEntry || marketplaceEntry.source !== './') {
+  throw new Error('Claude marketplace must list this plugin with source "./".');
+}
+if (marketplaceEntry.version !== plugin.version) {
+  throw new Error(
+    `Claude marketplace version ${marketplaceEntry.version} does not match plugin.json ${plugin.version}.`,
+  );
+}
 const legacyMcp = JSON.parse(await readFile(path.join(root, '.mcp.json'), 'utf8'));
 
 const pluginKeys = new Set([
