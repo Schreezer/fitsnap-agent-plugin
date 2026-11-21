@@ -26,7 +26,11 @@ No adapter may fork the behavior rules. Host-specific installers copy or map
 these immutable release artifacts and configure the same MCP endpoint.
 
 Approve the requested Forge access in the browser after installing the plugin.
-The Forge connection reads native tracking data. Log meals, update targets, and upload health reports in the Forge app.
+The bundled MCP connection reads native tracking data. To enable logging on a
+supported Forge backend, connect the host to `/api/v1/forge-mcp-log` and approve
+logging access. Shell agents can use `fitsnap forge login --log`. Both paths
+support meal entries and completed sets in an active workout. Update existing
+entries or targets and upload health reports in the Forge app.
 
 The package contains no user tokens, database credentials, Hermes
 configuration, or personal food/workout history. OAuth credentials remain in
