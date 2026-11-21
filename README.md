@@ -28,7 +28,8 @@ these immutable release artifacts and configure the same MCP endpoint.
 Approve the requested Forge access in the browser after installing the plugin.
 The bundled MCP connection reads native tracking data. To enable logging on a
 supported Forge backend, connect the host to `/api/v1/forge-mcp-log` and approve
-logging access. Shell agents can use `fitsnap forge login --log`. Both paths
+logging access. Shell agents with the `fitsnap` CLI from the Forge backend
+repository can run `fitsnap forge login --log` instead. Both paths
 support meal entries and completed sets in an active workout. Update existing
 entries or targets and upload health reports in the Forge app.
 
@@ -77,7 +78,7 @@ the logging endpoint as its own server and approve logging access through
 `/mcp`:
 
 ```
-claude mcp add --transport http forge-log https://dev.forgeme.xyz/api/v1/forge-mcp-log
+claude mcp add --scope user --transport http forge-log https://dev.forgeme.xyz/api/v1/forge-mcp-log
 ```
 
 Refresh the plugin with `/plugin marketplace update forge`.

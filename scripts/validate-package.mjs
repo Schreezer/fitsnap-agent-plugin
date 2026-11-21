@@ -128,6 +128,8 @@ const bundleText = [
   await readFile(path.join(root, 'mcp.json'), 'utf8'),
   await readFile(path.join(root, '.mcp.json'), 'utf8'),
   await readFile(path.join(root, '.codex-plugin', 'plugin.json'), 'utf8'),
+  await readFile(path.join(root, '.claude-plugin', 'plugin.json'), 'utf8'),
+  await readFile(path.join(root, '.claude-plugin', 'marketplace.json'), 'utf8'),
 ].join('\n');
 if (
   /BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY|FITSNAP_RELEASE_PRIVATE_KEY\s*=/i.test(
