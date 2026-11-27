@@ -31,8 +31,11 @@ supported Forge backend, connect the host to `/api/v1/forge-mcp-log` and approve
 logging access. Shell agents with the `fitsnap` CLI from the Forge backend
 repository can run `fitsnap forge login --log` instead. Both paths
 support meal entries, completed sets for a workout in progress or already
-finished, and whole workouts logged after the fact. Update existing entries or
-targets and upload health reports in the Forge app.
+finished, and whole workouts logged after the fact. The logging MCP connection
+also fixes, deletes and restores logged meal entries, sets, exercises and
+workouts, starts and finishes a live workout, records weigh-ins, and sets daily
+calorie and macro goals when asked; the CLI reads and logs only. Upload health
+reports in the Forge app.
 
 The package contains no user tokens, database credentials, Hermes
 configuration, or personal food/workout history. OAuth credentials remain in
@@ -74,9 +77,9 @@ Then run `/mcp`, choose `plugin:fit-snap:fitsnap`, and approve read access in
 the browser. To test an unreleased branch, add
 `Schreezer/fitsnap-agent-plugin#<branch>` as the marketplace instead.
 
-The plugin connects read-only. To let Claude log meals and completed sets, add
-the logging endpoint as its own server and approve logging access through
-`/mcp`:
+The plugin connects read-only. To let Claude log, fix and delete meals and
+workouts, record weigh-ins and set goals, add the logging endpoint as its own
+server and approve logging access through `/mcp`:
 
 ```
 claude mcp add --scope user --transport http forge-log https://dev.forgeme.xyz/api/v1/forge-mcp-log
