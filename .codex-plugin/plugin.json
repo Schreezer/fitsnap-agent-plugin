@@ -1,6 +1,6 @@
 {
   "name": "fit-snap",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Add authenticated Forge tools and logging guidance to an existing agent.",
   "author": {
     "name": "Forge"

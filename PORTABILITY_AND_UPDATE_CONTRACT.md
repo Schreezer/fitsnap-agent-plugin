@@ -1,6 +1,6 @@
 # Fit Snap plugin portability and update contract
 
-Status: implemented release contract. Version `0.4.1` is the current Agent
+Status: implemented release contract. Version `0.4.2` is the current Agent
 Plugins v1 package with signed GitHub release artifacts and a reference
 verification/activation script.
 
@@ -28,8 +28,8 @@ The signed manifest contains:
 ```json
 {
   "pluginId": "fit-snap",
-  "pluginVersion": "0.4.1",
-  "skillsVersion": "0.4.1",
+  "pluginVersion": "0.4.2",
+  "skillsVersion": "0.4.2",
   "skills": {
     "food-logging": { "url": "https://.../skills/food-logging/SKILL.md", "sha256": "..." },
     "workout-logging": { "url": "https://.../skills/workout-logging/SKILL.md", "sha256": "..." },
@@ -37,7 +37,7 @@ The signed manifest contains:
     "targets-and-preferences": { "url": "https://.../skills/targets-and-preferences/SKILL.md", "sha256": "..." }
   },
   "pluginArtifact": {
-    "url": "https://.../fit-snap-0.4.1.tar.gz",
+    "url": "https://.../fit-snap-0.4.2.tar.gz",
     "sha256": "..."
   },
   "mcpContractVersion": "1",
