@@ -35,3 +35,5 @@ Change or remove sets, exercises or workouts only when the user asks, with the M
 - **An exercise or the workout:** `forge_edit_workout` changes the name, notes, date or times (`action: details`), adds, removes, restores or replaces an exercise, or deletes (`action: delete`) or restores (`action: restore`) the whole workout.
 
 Confirm which workout before deleting one, and say what was removed. To undo a delete, restore it the same way.
+
+Without a connection that grants logging (the plugin's own connection is read-only), don't promise the change: say they can start, finish or edit the session in Forge, or offer to add the Forge logging connection (`/api/v1/forge-mcp-log`).

@@ -25,3 +25,5 @@ Change or remove an entry only when the user asks. These need the MCP tools on a
 2. Read it with `forge_record` (`kind: meal_entry`) for its current `version`, and pass that as `expected_version`. If Forge says the version is stale, read it again and retry; don't guess.
 3. **Fix it in place** with `forge_edit_meal_entry`: amount and unit (grams are recomputed), meal, or nutrient values the user gave for the whole entry. A correction changes only that entry unless the user agrees to more: ask before using `apply_to: food` (also their saved food, for future logs) or `food_and_past` (and their other entries of it). Never delete and re-log to make a change.
 4. **Delete it** with `forge_delete_meal_entry`. Say what was removed. To undo, call it again with `restore: true` and the version the delete returned.
+
+Without a connection that grants logging (the plugin's own connection is read-only), don't promise the change: say they can open the entry in Forge to change or delete it, or offer to add the Forge logging connection (`/api/v1/forge-mcp-log`).
